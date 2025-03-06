@@ -43,7 +43,7 @@ $result = $query->get_result();
     <div class="bg-dark solid-backgroud position-absolute bottom-0 top-0 start-0 end-0 p-5 h-100 overflow-scroll">
         <main class="container mt-5">
             <div class="row justify-content-center">
-                <div class="col-11">
+                <div class="col-md-12">
                     <div class="filter_control d-flex justify-content-between gap-5 mb-3 align-items-center">
                         <div class="input-group w-auto align-items-center gap-3">
                             <label class="text-white p-2 border rounded-3" for="usersTextInputFilter"><i class="fa fa-search" style="font-size: 1.2rem;" aria-hidden="true"></i></label>

@@ -45,7 +45,11 @@ html {
   font-family: "Jacquard 24", serif;
 }
 
-
+/* profile form */
+#privateInfo label,
+#generalInfo label {
+  font-size: 0.9rem;
+}
 
 /* container main articlesPage */
 .card__articles {
