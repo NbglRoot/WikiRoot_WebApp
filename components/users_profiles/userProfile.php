@@ -6,6 +6,7 @@ if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] != true) 
 
 
 require 'header.php';
+require '../popups.php';
 require '../footer.php';
 ?>
 
@@ -37,24 +38,25 @@ require '../footer.php';
                             <h5 class="card-title">Información de Cuenta</h5>
                             <h6 class="card-subtitle mb-2 text-muted ">Información Publica General</h6>
                             <hr>
-                            <form action="userProfile.php?updateGeneralInfo" method="post" class="form-check-inline m-3 gap-3 d-flex flex-wrap justify-content-evenly align-items-center">
+                            <form action="../../src/php/controller/profileConfig.php?updateGeneralInfo" id="generalInfo" method="post" class="form-check-inline m-3 gap-3 d-flex flex-wrap justify-content-evenly align-items-center">
                                 <div class="input-group gap-2 align-items-center m-2 w-auto">
                                     <label for="userCurrentName">Nombre: </label>
-                                    <input type="text" size="25" name="userCurrentName" id="userCurrentName" class="p-1 shadow form-control" value="<?php echo $_SESSION['userName'] ?>">
+                                    <input disabled="true" type="text" size="25" name="userCurrentName" id="userCurrentName" class="p-1 shadow form-control" value="<?php echo $_SESSION['userName'] ?>">
                                 </div>
                                 <div class="input-group gap-2 align-items-center m-2 w-auto">
                                     <label for="userCurrentLastName">Apellidos: </label>
-                                    <input type="text" size="25" name="userCurrentLastName" id="userCurrentLastName" class="p-1 shadow form-control" value="<?php echo $_SESSION['userLastName'] ?>">
+                                    <input disabled="true" type="text" size="25" name="userCurrentLastName" id="userCurrentLastName" class="p-1 shadow form-control" value="<?php echo $_SESSION['userLastName'] ?>">
                                 </div>
                                 <div class="input-group gap-2 align-items-center m-2 w-auto">
                                     <label for="userCurrentEmail">Email: </label>
-                                    <input type="text" size="25" name="userCurrentEmail" id="userCurrentEmail" class="p-1 shadow form-control" value="<?php echo $_SESSION['userEmail'] ?>">
+                                    <input disabled="true" type="email" size="25" name="userCurrentEmail" id="userCurrentEmail" class="p-1 shadow form-control" value="<?php echo $_SESSION['userEmail'] ?>">
                                 </div>
                                 <div class="input-group gap-2 align-items-center m-2 w-auto">
-                                    <label for="userCurrentRol">Rol: </label>
-                                    <input type="text" size="4" readonly disabled id="userCurrentRol" class="p-1 shadow form-control" value="<?php echo $_SESSION['userRole'] ?>">
+                                    <label for="userRol">Rol: </label>
+                                    <input disabled="true" readonly type="text" size="5" name="userRol" id="userRol" class="p-1 shadow form-control" value="<?php echo $_SESSION['userRole'] ?>">
                                 </div>
-                                <button type="submit" class="btn btn-danger ">Editar</button>
+                                <button type="button" class="btn btn-danger d-block confirmUserEdit">Editar</button>
+                                <button type="submit" class="btn btn-primary d-none applyUserEdit">Editar</button>
                             </form>
                         </div>
                     </div>
@@ -67,16 +69,17 @@ require '../footer.php';
                             <h5 class="card-title">Seguridad de Cuenta</h5>
                             <h6 class="card-subtitle mb-2 text-muted ">Información Privada de Seguridad</h6>
                             <hr>
-                            <form action="userProfile.php?updatePrivateInfo" method="post" class="form-check-inline m-3 d-flex align-items-center justify-content-between">
+                            <form action="../../src/php/controller/profileConfig.php?updatePrivateInfo" method="post" id="privateInfo" class="form-check-inline m-3 d-flex align-items-center justify-content-between">
                                 <div class="gap-2 align-items-center m-2 w-auto">
                                     <label for="userCurrentPassword">Contraseña Actual: </label>
-                                    <input size="25" name="userCurrentPassword" id="userCurrentPassword" class="p-1 shadow form-control" type="password" value="">
+                                    <input disabled="true" size="25" name="userCurrentPassword" id="userCurrentPassword" class="p-1 shadow form-control" type="password" value="">
                                 </div>
                                 <div class="gap-2 align-items-center m-2 w-auto">
                                     <label for="userNewPassword">Contraseña Nueva: </label>
-                                    <input size="25" name="userNewPassword" id="userNewPassword" class="p-1 shadow form-control" type="password" value="">
+                                    <input disabled="true" size="25" name="userNewPassword" id="userNewPassword" class="p-1 shadow form-control" type="password" value="">
                                 </div>
-                                <button type="submit" class="btn btn-danger ">Editar</button>
+                                <button type="button" class="btn btn-danger d-block confirmUserEditPrivateInfo">Editar</button>
+                                <button type="submit" class="btn btn-primary d-none applyUserEditPrivateInfo">Editar</button>
                             </form>
                         </div>
                     </div>

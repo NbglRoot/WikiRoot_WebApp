@@ -65,7 +65,7 @@ if (isset($_SESSION['user_logged_in'])) { ?>
                   if (strtolower($_SESSION['userRole']) == "admin") { ?>
                     <a class="dropdown-item" href="../admin_profile/administratorDDBB.php">Gestionar Usuarios</a>
                   <?php } ?>
-                  <a class="dropdown-item" href="">Crear Articulo</a>
+                  <a class="dropdown-item" href="../articles/articlesPage.php?createNewArticle">Crear Articulo</a>
                   <a class="dropdown-item" href="userProfile.php" active>Perfil</a>
                   <hr>
                   <a href="../../index.php?logout" class="dropdown-item">Cerrar Sesión</a>

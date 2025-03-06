@@ -24,7 +24,7 @@
             <h2 class="bg-dark shadow p-2 rounded-3 text-center">
                 <a
                     class="link-primary"
-                    href="index.php?articles">Artículos Mas Recientes</i></a>
+                    href="components/articles/articlesPage.php?showAllArticles">Artículos Mas Recientes</i></a>
             </h2>
         </div>
     </div>

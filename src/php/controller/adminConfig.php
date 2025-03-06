@@ -28,10 +28,28 @@ if (isset($_GET['idRoleChange']) && isset($_POST['roleEdited'])) {
     die();
 }
 
+// ADMIN users DELETE USER 
 if (isset($_GET['idUserDelete']) && isset($_POST['deleteUser'])) {
     $id = $_GET['idUserDelete'];
     $query = $conn->prepare("DELETE FROM users WHERE id =?");
     $query->bind_param('i', $id);
+    $query->execute();
+    header("Location:../../../components/admin_profile/administratorDDBB.php");
+    die();
+}
+
+// ADMIN users BAN USER
+if (isset($_GET['idUserBan']) && isset($_GET['userStatus']) && isset($_POST['banUser'])) {
+    $userId = $_GET['idUserBan'];
+    $userCurrentStatus = $_GET['userStatus'];
+    $query = $conn->prepare("UPDATE users SET ban_status = ? WHERE id = ?");
+    if ($userCurrentStatus == 'banned') {
+        $newRole = 'not_banned';
+        $query->bind_param('si', $newRole, $userId);
+    } else {
+        $newRole = 'banned';
+        $query->bind_param('si', $newRole, $userId);
+    }
     $query->execute();
     header("Location:../../../components/admin_profile/administratorDDBB.php");
     die();

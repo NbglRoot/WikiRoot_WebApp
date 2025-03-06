@@ -8,24 +8,30 @@ function loginUser($conn, $email, $password)
     $query->execute();
     $result = $query->get_result();
     $userInfo = mysqli_fetch_assoc($result);
-    if (mysqli_num_rows($result) > 0 && password_verify($password, $userInfo['password'])) {
-        session_start();
-        $_SESSION['user_logged_in'] = true;
-        $_SESSION['userName'] = $userInfo['firstName'];
-        $_SESSION['userLastName'] = $userInfo['lastName'];
-        $_SESSION['userEmail'] = $userInfo['email'];
-        $_SESSION['userRole'] = $userInfo['role'];
-        if ($userInfo['role'] == 1) {
-            $_SESSION['userRole'] = "Editor";
-        }
-        if ($userInfo['role'] == 2) {
-            $_SESSION['userRole'] = "Admin";
-        }
-        header("Location: ../../../index.php?success=loginSuccess");
-        die();
+    if ($userInfo['ban_status'] == 'banned') {
+        header("Location:../../../index.php?userIsBanned=active");
     } else {
-        header("Location: ../../../index.php?loginFailed");
-        die();
+        if (mysqli_num_rows($result) > 0 && password_verify($password, $userInfo['password'])) {
+            session_start();
+            $_SESSION['user_logged_in'] = true;
+            $_SESSION['userName'] = $userInfo['firstName'];
+            $_SESSION['userLastName'] = $userInfo['lastName'];
+            $_SESSION['userEmail'] = $userInfo['email'];
+            $_SESSION['userRole'] = $userInfo['role'];
+            $_SESSION['userUniqueId'] = $userInfo['id'];
+            $_SESSION['userPass'] = $userInfo['password'];
+            if ($userInfo['role'] == 1) {
+                $_SESSION['userRole'] = "Editor";
+            }
+            if ($userInfo['role'] == 2) {
+                $_SESSION['userRole'] = "Admin";
+            }
+            header("Location: ../../../index.php?success=loginSuccess");
+            die();
+        } else {
+            header("Location: ../../../index.php?loginFailed");
+            die();
+        }
     }
 }
 

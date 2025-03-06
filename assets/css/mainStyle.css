@@ -32,6 +32,7 @@ html {
   bottom: 0;
   height: 100%;
   z-index: -100;
+  overflow: scroll;
 }
 
 .solid-backgroud {
