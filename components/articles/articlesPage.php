@@ -2,6 +2,7 @@
 session_start();
 
 require 'header.php';
+require '../../src/php/controller/articlesController.php';
 include '../popups.php';
 require '../footer.php';
 ?>
@@ -36,11 +37,14 @@ require '../footer.php';
                             <hr>
                             <div class="card-body card__articles bg-dark text-white rounded-3">
                                 <div class="list-group">
-                                    <template>
-                                        <a href="#" class="list-group-item card-text bg-dark text-white border m-1 mb-3 list-group-item-action" aria-current="true">
-                                            WikiRoot: El origen de la historia.
+                                    <?php
+                                    while ($rowArticle = mysqli_fetch_assoc($result)) { ?>
+                                        <a href="articlesPage.php?post=<?php echo $rowArticle['article_title']; ?>" class="list-group-item card-text bg-dark text-white border mb-3 list-group-item-action" aria-current="true">
+                                            <?php echo $rowArticle['article_title']; ?>
                                         </a>
-                                    </template>
+                                    <?php
+                                    } ?>
+
                                 </div>
                             </div>
                         </div>
@@ -104,29 +108,29 @@ require '../footer.php';
         }
         if (isset($_GET['createNewArticle'])) { ?>
             <main class="container mt-5 mb-5">
-                <form action="../../src\php\controller\articlesController.php" method="POST" class="creationOfArticles form-check">
+                <form action="../../src\php\controller\articlesController.php" enctype="multipart/form-data" method="POST" class="creationOfArticles form-check">
                     <div class="row align-items-center">
                         <div class="col-md-4 p-3">
                             <div class="input-group-text">
                                 <label class="p-2 bg-light rounded-2" for="newArticleTitle">Titulo: </label>
-                                <input class="form-control" type="text" name="newArticleTitle" id="newArticleTitle" placeholder="titulo de articulo...">
+                                <input class="form-control" required type="text" name="newArticleTitle" id="newArticleTitle" placeholder="titulo de articulo...">
                             </div>
                         </div>
                     </div>
                     <div class="row align-items-center">
                         <div class="col-md-12 p-3">
                             <label class="p-2 bg-light rounded-2 mb-1" for="newArticleSummary">Resumen: </label>
-                            <textarea class="form-control" rows="5" name="newArticleSummary" id="newArticleSummary" placeholder="resumen del articulo..."></textarea>
+                            <textarea style="resize: none;" class="form-control" required rows="5" name="newArticleSummary" id="newArticleSummary" placeholder="resumen del articulo..."></textarea>
                         </div>
                     </div>
                     <div class="row align-items-center">
                         <div class="col-md-8 p-3">
                             <label class="p-2 bg-light rounded-2 mb-1" for="newArticleInfo">Información de Articulo: </label>
-                            <textarea class="form-control" rows="20" name="newArticleInfo" id="newArticleInfo" placeholder="Toda información del articulo..."></textarea>
+                            <textarea style="resize: none;" class="form-control" required rows="20" name="newArticleInfo" id="newArticleInfo" placeholder="Toda información del articulo..."></textarea>
                         </div>
                         <div class="col-md-4">
                             <label class="bg-light p-2 rounded-2 mb-1" for="newArticleThumbnail">Imagen de Portada: </label>
-                            <input class="form-control" accept="image/png, image/gif, image/jpeg" type="file" name="newArticleThumbnail" id="newArticleThumbnail">
+                            <input class="form-control" required accept="image/png, image/jpeg" type="file" name="newArticleThumbnail" id="newArticleThumbnail">
                         </div>
                     </div>
                     <div class="row mt-3 justify-content-center">
@@ -135,23 +139,75 @@ require '../footer.php';
                         </div>
                         <div class="col-md-4 mt-5">
                             <label class="bg-light p-2 rounded-2 mb-1" for="newArticleImagesGallery">Imagenes para la galeria: </label>
-                            <input class="form-control" accept="image/png, image/gif, image/jpeg" type="file" name="newArticleImagesGallery" id="newArticleImagesGallery">
+                            <input class="form-control" multiple="multiple" required accept="image/png, image/jpeg" type="file" name="newArticleImagesGallery[]" id="newArticleImagesGallery">
                         </div>
                     </div>
 
                     <div class="text-end m-3">
                         <button
+                            name="createNewArticle"
                             type="submit"
                             class="btn btn-primary">
                             Crear Articulo
                             <i class="fa fa-edit" aria-hidden="true"></i>
                         </button>
-
                     </div>
                 </form>
             </main>
         <?php
-        } ?>
+        }
+        if (isset($_GET['post'])) {
+            $title = $_GET['post'];
+            $query = $conn->prepare("SELECT * FROM articles WHERE article_title = ?");
+            $query->bind_param("s", $title);
+            $query->execute();
+            $result = $query->get_result();
+            $articleInfo = mysqli_fetch_assoc($result);
+            $queryG = $conn->prepare("SELECT * FROM img_gallery WHERE belongs_to = ?");
+            $queryG->bind_param("s", $title);
+            $queryG->execute();
+            $gallery = $queryG->get_result();
+        ?>
+            <main class="container mt-5 mb-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-5">
+                        <h1 class="bg-light p-3 rounded-3 text-center mb-4"><?php echo $articleInfo['article_title']; ?></h1>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+                        <p class="bg-light p-3 rounded-3"><?php echo $articleInfo['article_summary']; ?></p>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <p class="bg-light p-3 rounded-3 h-100"><?php echo $articleInfo['article_desc']; ?></p>
+                    </div>
+                    <div class="col-md-4">
+                        <img class="img-fluid" src="../../public/media/articles_thumbnails/<?php echo $articleInfo['article_thumbnail']; ?>" alt="Portada de <?php echo $articleInfo['article_title']; ?> ">
+                        <p class="bg-light m-1 text-center w-auto p-1"><?php echo $articleInfo['article_thumbnailSize']; ?> bytes</p>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <h2 class="bg-light p-2 m-3 text-center">Galeria de Imagenes</h2>
+                        </div>
+                    </div>
+                    <div class="row mt-4 justify-content-center">
+                        <div class="col-md-12 align-items-center justify-content-evenly d-flex flex-row gap-5 flex-wrap">
+                            <?php
+                            while ($imgs = mysqli_fetch_assoc($gallery)) { ?>
+                                <img width="300px" style="object-fit: contain;" height="auto" class="img-fluid p-2 bg-light shadow" src="../../public/media/articles_gallery/<?php echo $imgs['img'] ?>" alt="<?php echo $imgs['img'] ?>">
+                            <?php
+                            } ?>
+
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        <?php
+        }
+        ?>
     </div>
 
     <!-- Page scripts + Jquery -->

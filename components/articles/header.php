@@ -1,4 +1,11 @@
 <?php
+
+require '../../src/php/controller/db_conn.php';
+
+$query = $conn->prepare("SELECT * FROM articles");
+$query->execute();
+$result = $query->get_result();
+
 if (isset($_SESSION['user_logged_in'])) { ?>
   <header>
     <nav class="navbar navbar-expand-sm navbar-dark navbar__preferences">
@@ -27,14 +34,24 @@ if (isset($_SESSION['user_logged_in'])) { ?>
         <div
           class="collapse align-items-center justify-content-between navbar-collapse"
           id="navbarID">
-          <form action="#" method="get" class="m-2">
+          <form action="articlesPage.php?post=" method="get" class="m-2">
             <div class="input-group gap-2">
               <input
                 type="text"
+                list="searchArticle"
                 class="form-control rounded-1"
                 placeholder="Buscar en WikiRoot"
                 aria-label="Buscar en WikiRoot"
                 aria-describedby="basic-addon1" />
+              <datalist id="searchArticle">
+                <?php
+                while ($article = mysqli_fetch_assoc($result)) { ?>
+                  <option value="<?php echo $article['article_title']; ?>">
+                    <a href="articlesPage.php?post=<?php echo $article['article_title']; ?>"><?php $article['article_title']; ?></a>
+                  </option>
+                <?php
+                } ?>
+              </datalist>
               <button
                 class="btn btn-primary rounded-1"
                 type="submit"
@@ -106,14 +123,24 @@ if (isset($_SESSION['user_logged_in'])) { ?>
         <div
           class="collapse align-items-center justify-content-between navbar-collapse"
           id="navbarID">
-          <form action="#" method="get" class="m-2">
+          <form action="articlesPage.php?post=" method="get" class="m-2">
             <div class="input-group gap-2">
               <input
                 type="text"
+                list="searchArticle"
                 class="form-control rounded-1"
                 placeholder="Buscar en WikiRoot"
                 aria-label="Buscar en WikiRoot"
                 aria-describedby="basic-addon1" />
+              <datalist id="searchArticle">
+                <?php
+                while ($article = mysqli_fetch_assoc($result)) { ?>
+                  <option value="<?php echo $article['article_title']; ?>">
+                    <a href="articlesPage.php?post=<?php echo $article['article_title']; ?>"><?php $article['article_title']; ?></a>
+                  </option>
+                <?php
+                } ?>
+              </datalist>
               <button
                 class="btn btn-primary rounded-1"
                 type="submit"

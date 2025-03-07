@@ -86,4 +86,38 @@ $(document).ready(function () {
       });
     }
   });
+
+  if (
+    document.querySelector("#newArticleThumbnail") &&
+    document.querySelector("#newArticleImagesGallery")
+  ) {
+    document
+      .querySelector("#newArticleThumbnail")
+      .addEventListener("change", (e) => {
+        const [file] = e.target.files;
+        const type = file.type.toLowerCase();
+        if (
+          type !== "image/jpg" &&
+          type !== "image/jpeg" &&
+          type !== "image/png"
+        ) {
+          alert("Solo se permiten imagenes con formato jpg, jpeg o png");
+          e.target.value = "";
+        }
+      });
+    document
+      .querySelector("#newArticleImagesGallery")
+      .addEventListener("change", (e) => {
+        const [file] = e.target.files;
+        const type = file.type.toLowerCase();
+        if (
+          type !== "image/jpg" &&
+          type !== "image/jpeg" &&
+          type !== "image/png"
+        ) {
+          alert("Solo se permiten imagenes con formato jpg, jpeg o png");
+          e.target.value = "";
+        }
+      });
+  }
 });
