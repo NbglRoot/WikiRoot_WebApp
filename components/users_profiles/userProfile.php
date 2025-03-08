@@ -29,8 +29,8 @@ require '../footer.php';
 </head>
 
 <body>
-    <div class="bg-dark solid-backgroud position-absolute bottom-0 top-0 start-0 end-0 pt-5">
-        <div class="container mt-4">
+    <div class="bg-dark overflow-scroll solid-backgroud position-absolute bottom-0 top-0 start-0 end-0 pt-5">
+        <div class="container pb-5 mt-4">
             <div class="row justify-content-center">
                 <div class="col-md-10">
                     <div class="card shadow">
@@ -83,6 +83,13 @@ require '../footer.php';
                             </form>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row mt-4 mb-4 justify-content-center">
+                <div class="col-md-3">
+                    <form action="../../src/php/controller/profileConfig.php?deleteMyAccount" class="text-center" method="post">
+                        <button class="btn btn-danger" name="deleteMyAccount" id="deleteMyAccount" type="submit">Eliminar Cuenta</button>
+                    </form>
                 </div>
             </div>
         </div>

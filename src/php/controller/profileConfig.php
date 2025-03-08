@@ -1,8 +1,8 @@
 <?php
 require 'db_conn.php';
+session_start();
 
 if (isset($_GET['updateGeneralInfo'])) {
-    session_start();
     $userId = $_SESSION['userUniqueId'];
     $userNewFirstName = $_POST['userCurrentName'];
     $userNewLastName = $_POST['userCurrentLastName'];
@@ -19,7 +19,6 @@ if (isset($_GET['updateGeneralInfo'])) {
 }
 
 if (isset($_GET['updatePrivateInfo'])) {
-    session_start();
     $userId = $_SESSION['userUniqueId'];
     $userCurrentPassword = $_POST['userCurrentPassword'];
     $userNewPassword = password_hash($_POST['userNewPassword'], PASSWORD_DEFAULT);
@@ -36,4 +35,13 @@ if (isset($_GET['updatePrivateInfo'])) {
     } else {
         header("Location:../../../components/users_profiles/userProfile.php?samePassword");
     }
+}
+
+if (isset($_GET['deleteMyAccount'])) {
+    $userEmail = $_SESSION['userEmail'];
+    $query = $conn->prepare("DELETE FROM users WHERE email =?");
+    $query->bind_param('s', $userEmail);
+    $query->execute();
+    session_destroy();
+    header("Location:../../../index.php");
 }

@@ -51,7 +51,7 @@ require '../footer.php';
                     </div>
                     <div class="col-md-7 mt-3 mt-md-0">
                         <div class="card bg-dark border card__aboutUs text-start">
-                            <div class="card-body text-white justify-content-between d-flex flex-column">
+                            <div class="card-body overflow-scroll text-white justify-content-between d-flex flex-column">
                                 <div class="main__content">
                                     <div class="catd__title__image d-flex justify-content-center gap-5 align-items-center">
                                         <img
@@ -67,6 +67,10 @@ require '../footer.php';
                                         y los principios de <b>Tim Berners-Lee</b> sobre el acceso libre al conocimiento. Mi misión es crear un espacio donde los usuarios puedan compartir y editar artículos sobre diversos temas, fomentando así la difusión del conocimiento de manera colectiva.
                                         Al igual que las raíces de un árbol que se entrelazan para formar una red robusta,
                                         <b>WikiRoot</b> conecta personas y saberes para crear una base de conocimiento en constante crecimiento.
+                                        <br>
+                                        <br>
+                                        <br>
+                                        La esencia de WikiRoot radica en su naturaleza colaborativa, donde el conocimiento se construye de manera conjunta y en constante evolución. Los usuarios pueden generar nuevos artículos sobre diversos temas y, al mismo tiempo, otros miembros de la comunidad pueden editarlos para añadir detalles
                                     </p>
                                 </div>
                                 <div class="card-text d-flex flex-wrap justify-content-between">
@@ -106,7 +110,7 @@ require '../footer.php';
             </main>
         <?php
         }
-        if (isset($_GET['createNewArticle'])) { ?>
+        if (isset($_GET['createNewArticle']) && isset($_SESSION['user_logged_in'])) { ?>
             <main class="container mt-5 mb-5">
                 <form action="../../src\php\controller\articlesController.php" enctype="multipart/form-data" method="POST" class="creationOfArticles form-check">
                     <div class="row align-items-center">
@@ -183,27 +187,65 @@ require '../footer.php';
                     <div class="col-md-8">
                         <p class="bg-light p-3 rounded-3 h-100"><?php echo $articleInfo['article_desc']; ?></p>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 mt-3">
                         <img class="img-fluid" src="../../public/media/articles_thumbnails/<?php echo $articleInfo['article_thumbnail']; ?>" alt="Portada de <?php echo $articleInfo['article_title']; ?> ">
                         <p class="bg-light m-1 text-center w-auto p-1"><?php echo $articleInfo['article_thumbnailSize']; ?> bytes</p>
                     </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-8">
-                            <h2 class="bg-light p-2 m-3 text-center">Galeria de Imagenes</h2>
-                        </div>
+                </div>
+                <div class="row mt-4 justify-content-center">
+                    <div class="col-md-8">
+                        <h2 class="bg-light p-2 m-3 text-center">Galeria de Imagenes</h2>
                     </div>
-                    <div class="row mt-4 justify-content-center">
-                        <div class="col-md-12 align-items-center justify-content-evenly d-flex flex-row gap-5 flex-wrap">
-                            <?php
-                            while ($imgs = mysqli_fetch_assoc($gallery)) { ?>
-                                <img width="300px" style="object-fit: contain;" height="auto" class="img-fluid p-2 bg-light shadow" src="../../public/media/articles_gallery/<?php echo $imgs['img'] ?>" alt="<?php echo $imgs['img'] ?>">
-                            <?php
-                            } ?>
-
+                </div>
+                <div class="row mt-4 justify-content-center">
+                    <div class="col-md-12 align-items-center justify-content-evenly d-flex flex-row gap-5 flex-wrap">
+                        <div id="carousel_gallery" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <?php
+                                $slide = 0;
+                                $gallery->data_seek(0);
+                                while ($row = mysqli_fetch_assoc($gallery)) {
+                                ?>
+                                    <li
+                                        class="<?php echo ($slide == 0) ? 'active' : ''; ?>"
+                                        data-bs-target="#carousel_gallery"
+                                        data-bs-slide-to="<?php echo $slide; ?>"
+                                        aria-label="Slide<?php echo $slide ?>"></li>
+                                <?php
+                                    $slide++;
+                                } ?>
+                            </ol>
+                            <div class="carousel-inner" role="listbox">
+                                <?php
+                                $slideImg = 0;
+                                $gallery->data_seek(0);
+                                while ($imgs = mysqli_fetch_assoc($gallery)) { ?>
+                                    <div class="carousel-item <?php echo ($slideImg === 0) ? 'active' : ''; ?> ?> ">
+                                        <img class="img-fluid" src="../../public/media/articles_gallery/<?php echo $imgs['img'] ?>" alt="<?php echo $slideImg; ?>">
+                                    </div>
+                                <?php
+                                    $slideImg++;
+                                } ?>
+                                <button
+                                    class="carousel-control-prev"
+                                    type="button"
+                                    data-bs-target="#carousel_gallery"
+                                    data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button
+                                    class="carousel-control-next"
+                                    type="button"
+                                    data-bs-target="#carousel_gallery"
+                                    data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </main>
         <?php
         }

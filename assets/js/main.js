@@ -49,6 +49,16 @@ $(document).ready(function () {
     });
   }
 
+  // user delete option
+  if ($("#deleteMyAccount")) {
+    $("#deleteMyAccount").click(function (e) {
+      e.preventDefault();
+      if (confirm("Seguro de eliminar tu cuenta?")) {
+        this.closest("form").submit();
+      }
+    });
+  }
+
   // admin control change role from user
   $(".usersRole_adminControl").on("change", function () {
     this.closest("form").submit();
@@ -119,5 +129,19 @@ $(document).ready(function () {
           e.target.value = "";
         }
       });
+  }
+
+  // bootstrap carrousel
+  if ($("#carousel_gallery")) {
+    document
+      .querySelector(".carousel-indicators")
+      .firstElementChild.setAttribute("aria-current", "true");
+    document
+      .querySelector(".carousel-inner")
+      .firstElementChild.classList.add("active");
+
+    $("#carousel_gallery").carousel({
+      interval: 3000,
+    });
   }
 });
