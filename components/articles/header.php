@@ -34,15 +34,16 @@ if (isset($_SESSION['user_logged_in'])) { ?>
         <div
           class="collapse align-items-center justify-content-between navbar-collapse"
           id="navbarID">
-          <form action="articlesPage.php?post=" method="get" class="m-2">
+          <form action="articlesPage.php" method="GET" class="m-2">
             <div class="input-group gap-2">
               <input
                 type="text"
                 list="searchArticle"
+                name="searchBar"
+                autocomplete="off"
                 class="form-control rounded-1"
                 placeholder="Buscar en WikiRoot"
-                aria-label="Buscar en WikiRoot"
-                aria-describedby="basic-addon1" />
+                aria-label="Buscar en WikiRoot" />
               <datalist id="searchArticle">
                 <?php
                 while ($article = mysqli_fetch_assoc($result)) { ?>
@@ -53,6 +54,7 @@ if (isset($_SESSION['user_logged_in'])) { ?>
                 } ?>
               </datalist>
               <button
+                name="searchPost"
                 class="btn btn-primary rounded-1"
                 type="submit"
                 id="button-addon1">
@@ -123,15 +125,16 @@ if (isset($_SESSION['user_logged_in'])) { ?>
         <div
           class="collapse align-items-center justify-content-between navbar-collapse"
           id="navbarID">
-          <form action="articlesPage.php?post=" method="get" class="m-2">
+          <form action="articlesPage.php" method="GET" class="m-2">
             <div class="input-group gap-2">
               <input
                 type="text"
                 list="searchArticle"
+                name="searchBar"
+                autocomplete="off"
                 class="form-control rounded-1"
                 placeholder="Buscar en WikiRoot"
-                aria-label="Buscar en WikiRoot"
-                aria-describedby="basic-addon1" />
+                aria-label="Buscar en WikiRoot" />
               <datalist id="searchArticle">
                 <?php
                 while ($article = mysqli_fetch_assoc($result)) { ?>

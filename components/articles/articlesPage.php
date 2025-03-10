@@ -1,5 +1,11 @@
 <?php
 session_start();
+ob_start();
+if (isset($_GET['searchBar'])) {
+    $searchedPost = 'articlesPage.php?post=' . $_GET['searchBar'];
+    header("Location: $searchedPost");
+    exit();
+}
 
 require 'header.php';
 require '../../src/php/controller/articlesController.php';
@@ -167,6 +173,10 @@ require '../footer.php';
             $query->execute();
             $result = $query->get_result();
             $articleInfo = mysqli_fetch_assoc($result);
+            if (!$articleInfo) {
+                header('Location: articlesPage.php?notfound');
+                exit(); // Add exit to prevent further execution
+            }
             $queryG = $conn->prepare("SELECT * FROM img_gallery WHERE belongs_to = ?");
             $queryG->bind_param("s", $title);
             $queryG->execute();
@@ -249,7 +259,21 @@ require '../footer.php';
             </main>
         <?php
         }
+        if (isset($_GET['notfound'])) { ?>
+            <main class="container mt-5 mb-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-7">
+                        <h1 class="text-center text-white p-5 border">
+                            Error: <br> Articulo no Encontrado <br><br> <i class="fa fa-file-archive-o" aria-hidden="true"></i>
+                    </div>
+
+                    </h1>
+                </div>
+            </main>
+        <?php
+        }
         ?>
+
     </div>
 
     <!-- Page scripts + Jquery -->
