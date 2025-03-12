@@ -24,7 +24,7 @@ if (isset($_GET['idRoleChange']) && isset($_POST['roleEdited'])) {
     $query = $conn->prepare("UPDATE users SET role = ? WHERE id = ?");
     $query->bind_param('ii', $role, $id);
     $query->execute();
-    header("Location: ../../../components/admin_profile/administratorDDBB.php");
+    header("Location: ../../../components/admin_profile/administratorDDBB.php?userManagement");
     die();
 }
 
@@ -34,7 +34,7 @@ if (isset($_GET['idUserDelete']) && isset($_POST['deleteUser'])) {
     $query = $conn->prepare("DELETE FROM users WHERE id =?");
     $query->bind_param('i', $id);
     $query->execute();
-    header("Location:../../../components/admin_profile/administratorDDBB.php");
+    header("Location:../../../components/admin_profile/administratorDDBB.php?userManagement");
     die();
 }
 
@@ -51,6 +51,15 @@ if (isset($_GET['idUserBan']) && isset($_GET['userStatus']) && isset($_POST['ban
         $query->bind_param('si', $newRole, $userId);
     }
     $query->execute();
-    header("Location:../../../components/admin_profile/administratorDDBB.php");
+    header("Location:../../../components/admin_profile/administratorDDBB.php?userManagement");
     die();
+}
+
+// ADMIN articles DELETE
+if (isset($_GET['idArticleDelete'])) {
+    $id = $_GET['idArticleDelete'];
+    $query = $conn->prepare("DELETE FROM articles WHERE id =?");
+    $query->bind_param('i', $id);
+    $query->execute();
+    header("Location:../../../components/admin_profile/administratorDDBB.php?articleManagement");
 }

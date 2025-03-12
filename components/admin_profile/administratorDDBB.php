@@ -7,14 +7,6 @@ require '../../src/php/controller/adminConfig.php';
 require 'headerAdmin.php';
 require '../footer.php';
 
-
-// ADMIN DDBB | users table
-$adminEmail = $_SESSION['userEmail'];
-$query = $conn->prepare("SELECT * FROM users WHERE email != ?");
-$query->bind_param("s", $adminEmail);
-$query->execute();
-$result = $query->get_result();
-
 ?>
 
 <!doctype html>
@@ -41,85 +33,141 @@ $result = $query->get_result();
 
 <body>
     <div class="bg-dark solid-backgroud position-absolute bottom-0 top-0 start-0 end-0 p-5 h-100 overflow-scroll">
-        <main class="container mt-5">
-            <div class="row justify-content-center">
-                <div class="col-md-12">
-                    <div class="filter_control d-flex justify-content-between gap-5 mb-3 align-items-center">
-                        <div class="input-group w-auto align-items-center gap-3">
-                            <label class="text-white p-2 border rounded-3" for="usersTextInputFilter"><i class="fa fa-search" style="font-size: 1.2rem;" aria-hidden="true"></i></label>
-                            <input class="p-2 rounded-3 usersTextInputFilter" type="text" name="usersTextInputFilter" id="usersTextInputFilter">
+        <?php if (isset($_GET['userManagement'])) {
+            // ADMIN DDBB | users management
+            $adminEmail = $_SESSION['userEmail'];
+            $query = $conn->prepare("SELECT * FROM users WHERE email != ?");
+            $query->bind_param("s", $adminEmail);
+            $query->execute();
+            $result = $query->get_result();
+
+        ?>
+            <main class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="filter_control d-flex justify-content-between gap-5 mb-3 align-items-center">
+                            <div class="input-group w-auto align-items-center gap-3">
+                                <label class="text-white p-2 border rounded-3" for="usersTextInputFilter"><i class="fa fa-search" style="font-size: 1.2rem;" aria-hidden="true"></i></label>
+                                <input class="p-2 rounded-3 usersTextInputFilter" type="text" name="usersTextInputFilter" id="usersTextInputFilter">
+                            </div>
+                        </div>
+                        <table class="table mt-1 table-dark table-striped table-bordered table-responsive table-hover align-middle text-center">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Apellidos</th>
+                                    <th>Correo</th>
+                                    <th>Estado</th>
+                                    <th>Rol</th>
+                                    <th>Opciones de Admin</th>
+                            </thead>
+                            <tbody id="adminTableBody" class="table-group-divider">
+
+                                <?php
+                                while ($users = mysqli_fetch_assoc($result)) { ?>
+                                    <tr>
+                                        <td> <?php echo $users['id'] ?> </td>
+                                        <td> <?php echo $users['firstName'] ?> </td>
+                                        <td> <?php echo $users['lastName'] ?> </td>
+                                        <td> <?php echo $users['email'] ?> </td>
+                                        <td> <?php
+                                                if ($users['ban_status'] == 'not_banned') {
+                                                    echo 'No Baneado';
+                                                } else {
+                                                    echo 'Baneado';
+                                                }
+                                                ?> </td>
+                                        <td>
+                                            <form id="adminRoleAdministration" action="../../src/php/controller/adminConfig.php?idRoleChange=<?php echo $users['id']; ?>" class="m-0" method="post">
+                                                <select name="roleEdited" class="usersRole_adminControl p-1">
+                                                    <option> <?php if ($users['role'] == 1) {
+                                                                    echo 'Editor';
+                                                                } else {
+                                                                    echo 'Admin';
+                                                                } ?> </option>
+                                                    <option> <?php if ($users['role'] == 2) {
+                                                                    echo 'Editor';
+                                                                } else {
+                                                                    echo 'Admin';
+                                                                } ?> </option>
+                                                </select>
+                                            </form>
+                                        </td>
+                                        <td class="d-flex gap-3 align-items-center justify-content-center">
+                                            <form class="m-0" action="../../src/php/controller/adminConfig.php?idUserBan=<?php echo $users['id']; ?>&userStatus=<?php echo $users['ban_status'] ?>" method="post">
+                                                <button name="banUser" class="btn btn-info userBanButton" type="submit">
+                                                    <?php
+                                                    if ($users['ban_status'] == 'not_banned') {
+                                                        echo '<i class="fa fa-ban" aria-hidden="true"></i>';
+                                                    } else {
+                                                        echo '<i class="fa fa-check" aria-hidden="true"></i>';
+                                                    }
+                                                    ?>
+
+
+                                                </button>
+                                            </form>
+                                            <form class="m-0" action="../../src/php/controller/adminConfig.php?idUserDelete=<?php echo $users['id']; ?>" method="post">
+                                                <button name="deleteUser" class="btn btn-danger deleteUser" type="submit">Eliminar</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        <?php } ?>
+        <?php if (isset($_GET['articlesManagement'])) {
+            // ADMIN DDBB | articles management
+            $query = $conn->prepare("SELECT * FROM articles");
+            $query->execute();
+            $articlesResult = $query->get_result();
+        ?>
+            <main class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-7">
+                        <div class="filter_control d-flex justify-content-between gap-5 mb-3 align-items-center">
+                            <div class="input-group w-auto align-items-center gap-3">
+                                <label class="text-white p-2 border rounded-3" for="usersTextInputFilter"><i class="fa fa-search" style="font-size: 1.2rem;" aria-hidden="true"></i></label>
+                                <input class="p-2 rounded-3 usersTextInputFilter" type="text" name="usersTextInputFilter" id="usersTextInputFilter">
+
+                                <table class="table mt-1 table-dark table-striped table-bordered table-responsive table-hover align-middle text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Titutlo</th>
+                                            <th>Opcion de Admin</th>
+                                    </thead>
+                                    <tbody id="adminTableBody" class="table-group-divider">
+
+                                        <?php
+                                        while ($articles = mysqli_fetch_assoc($articlesResult)) { ?>
+                                            <tr>
+                                                <td> <?php echo $articles['id'] ?> </td>
+                                                <td> <?php echo $articles['article_title'] ?> </td>
+                                                </td>
+                                                <td class="d-flex gap-3 align-items-center justify-content-center">
+                                                    <form class="m-0" action="../../src/php/controller/adminConfig.php?idArticleDelete=<?php echo $articles['id']; ?>" method="post">
+                                                        <button name="deleteArticle" class="btn btn-danger deleteUser" type="submit">Eliminar</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <table class="table mt-1 table-dark table-striped table-bordered table-responsive table-hover align-middle text-center">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Apellidos</th>
-                                <th>Correo</th>
-                                <th>Estado</th>
-                                <th>Rol</th>
-                                <th>Opciones de Admin</th>
-                        </thead>
-                        <tbody id="adminTableBody" class="table-group-divider">
-
-                            <?php
-                            while ($users = mysqli_fetch_assoc($result)) { ?>
-                                <tr>
-                                    <td> <?php echo $users['id'] ?> </td>
-                                    <td> <?php echo $users['firstName'] ?> </td>
-                                    <td> <?php echo $users['lastName'] ?> </td>
-                                    <td> <?php echo $users['email'] ?> </td>
-                                    <td> <?php
-                                            if ($users['ban_status'] == 'not_banned') {
-                                                echo 'No Baneado';
-                                            } else {
-                                                echo 'Baneado';
-                                            }
-                                            ?> </td>
-                                    <td>
-                                        <form id="adminRoleAdministration" action="../../src/php/controller/adminConfig.php?idRoleChange=<?php echo $users['id']; ?>" class="m-0" method="post">
-                                            <select name="roleEdited" class="usersRole_adminControl p-1">
-                                                <option> <?php if ($users['role'] == 1) {
-                                                                echo 'Editor';
-                                                            } else {
-                                                                echo 'Admin';
-                                                            } ?> </option>
-                                                <option> <?php if ($users['role'] == 2) {
-                                                                echo 'Editor';
-                                                            } else {
-                                                                echo 'Admin';
-                                                            } ?> </option>
-                                            </select>
-                                        </form>
-                                    </td>
-                                    <td class="d-flex gap-3 align-items-center justify-content-center">
-                                        <form class="m-0" action="../../src/php/controller/adminConfig.php?idUserBan=<?php echo $users['id']; ?>&userStatus=<?php echo $users['ban_status'] ?>" method="post">
-                                            <button name="banUser" class="btn btn-info userBanButton" type="submit">
-                                                <?php
-                                                if ($users['ban_status'] == 'not_banned') {
-                                                    echo '<i class="fa fa-ban" aria-hidden="true"></i>';
-                                                } else {
-                                                    echo '<i class="fa fa-check" aria-hidden="true"></i>';
-                                                }
-                                                ?>
-
-
-                                            </button>
-                                        </form>
-                                        <form class="m-0" action="../../src/php/controller/adminConfig.php?idUserDelete=<?php echo $users['id']; ?>" method="post">
-                                            <button name="deleteUser" class="btn btn-danger deleteUser" type="submit">Eliminar</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            <?php
-                            }
-                            ?>
-                        </tbody>
-                    </table>
                 </div>
-            </div>
-        </main>
+            </main>
+        <?php } ?>
     </div>
 
     <!-- Bootstrap, Popper and JQuery JavaScript Libraries -->

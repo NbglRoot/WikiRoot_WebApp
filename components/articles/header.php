@@ -82,7 +82,8 @@ if (isset($_SESSION['user_logged_in'])) { ?>
                 <div class="dropdown-menu" aria-labelledby="userOptions">
                   <?php
                   if (strtolower($_SESSION['userRole']) == "admin") { ?>
-                    <a class="dropdown-item" href="../admin_profile/administratorDDBB.php">Gestionar Usuarios</a>
+                    <a class="dropdown-item" href="../admin_profile/administratorDDBB.php?userManagement">Gestionar Usuarios</a>
+                    <a class="dropdown-item" href="../admin_profile/administratorDDBB.php?articlesManagement">Gestionar Articulos</a>
                   <?php } ?>
                   <a class="dropdown-item" href="../articles/articlesPage.php?createNewArticle">Crear Articulo</a>
                   <a class="dropdown-item" href="../users_profiles/userProfile.php">Perfil</a>

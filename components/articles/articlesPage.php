@@ -188,7 +188,19 @@ require '../footer.php';
                         <h1 class="bg-light p-3 rounded-3 text-center mb-4"><?php echo $articleInfo['article_title']; ?></h1>
                     </div>
                 </div>
-                <div class="row justify-content-center">
+                <?php
+                if (isset($_SESSION['user_logged_in'])) { ?>
+                    <div class="row justify-content-center">
+                        <div class="col-md-2">
+                            <a class="text-center btn btn-primary" href="articlesPage.php?editArticle=<?php echo $articleInfo['id'] ?>">Editar Articulo</a>
+                        </div>
+                    </div>
+                <?php
+                } ?>
+
+                <div class="row <?php if (isset($_SESSION['user_logged_in'])) {
+                                    echo 'mt-4';
+                                } ?> justify-content-center">
                     <div class="col-md-10">
                         <p class="bg-light p-3 rounded-3"><?php echo $articleInfo['article_summary']; ?></p>
                     </div>
@@ -272,7 +284,9 @@ require '../footer.php';
             </main>
         <?php
         }
-        ?>
+        if (isset($_GET['editArticle'])) {
+            require '../pages/editArticle.php';
+        } ?>
 
     </div>
 

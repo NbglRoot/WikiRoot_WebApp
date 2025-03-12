@@ -75,6 +75,15 @@ if (isset($_POST['createNewArticle'])) {
     }
 }
 
+if (isset($_POST['editExisitingArticle'])) {
+    $query = $conn->prepare("UPDATE articles SET article_title=?, article_summary=?, article_desc=? WHERE id=?");
+    $query->bind_param("sssi", $_POST['editArticleTitle'], $_POST['editArticleSummary'], $_POST['editArticleInfo'], $_GET['articleId']);
+    $query->execute();
+
+    header("Location: ../../../components/articles/articlesPage.php?post=" . $_POST['editArticleTitle']);
+}
+
+
 if (isset($_GET['showAllArticles'])) {
     $query = $conn->prepare("SELECT * FROM articles");
     $query->execute();
