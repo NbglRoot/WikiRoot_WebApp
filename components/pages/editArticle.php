@@ -1,6 +1,6 @@
 <?php
 
-require '../../src/php/controller/db_conn.php';
+require '../../src/php/db_conn.php';
 
 if (isset($_GET['editArticle'])) {
     $article_id = $_GET['editArticle'];

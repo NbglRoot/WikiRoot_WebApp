@@ -1,5 +1,5 @@
 <?php
-require 'db_conn.php';
+require_once __DIR__ . '/../db_conn.php';
 session_start();
 
 if (isset($_GET['updateGeneralInfo'])) {

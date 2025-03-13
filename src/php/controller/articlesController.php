@@ -1,5 +1,5 @@
 <?php
-require 'db_conn.php';
+require_once __DIR__ . '/../db_conn.php';
 
 if (isset($_POST['createNewArticle'])) {
     function checkIfExists($conn)

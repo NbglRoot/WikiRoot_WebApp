@@ -25,10 +25,6 @@ require '../footer.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
         crossorigin="anonymous">
-
-    <!-- main script -->
-    <!-- Page scripts -->
-    <script defer src="../../assets/js/main.js"></script>
 </head>
 
 <body>
@@ -130,7 +126,7 @@ require '../footer.php';
         ?>
             <main class="container mt-5">
                 <div class="row justify-content-center">
-                    <div class="col-md-7">
+                    <div class="col-md-6">
                         <div class="filter_control d-flex justify-content-between gap-5 mb-3 align-items-center">
                             <div class="input-group w-auto align-items-center gap-3">
                                 <label class="text-white p-2 border rounded-3" for="usersTextInputFilter"><i class="fa fa-search" style="font-size: 1.2rem;" aria-hidden="true"></i></label>
@@ -140,7 +136,7 @@ require '../footer.php';
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Titutlo</th>
+                                            <th>Titulo</th>
                                             <th>Opcion de Admin</th>
                                     </thead>
                                     <tbody id="adminTableBody" class="table-group-divider">
@@ -153,7 +149,7 @@ require '../footer.php';
                                                 </td>
                                                 <td class="d-flex gap-3 align-items-center justify-content-center">
                                                     <form class="m-0" action="../../src/php/controller/adminConfig.php?idArticleDelete=<?php echo $articles['id']; ?>" method="post">
-                                                        <button name="deleteArticle" class="btn btn-danger deleteUser" type="submit">Eliminar</button>
+                                                        <button name="deleteArticle" class="btn btn-danger deleteArticle" type="submit">Eliminar</button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -170,6 +166,8 @@ require '../footer.php';
         <?php } ?>
     </div>
 
+
+
     <!-- Bootstrap, Popper and JQuery JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -180,6 +178,10 @@ require '../footer.php';
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
         crossorigin="anonymous"></script>
+
+    <!-- Page scripts -->
+    <script src="../../assets/js/main.js"></script>
+
 
     <!-- Font Awesome for Icons JavaScript -->
     <script src="https://kit.fontawesome.com/259098186a.js" crossorigin="anonymous"></script>

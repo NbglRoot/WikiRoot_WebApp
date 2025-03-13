@@ -1,5 +1,5 @@
 <?php
-require 'db_conn.php';
+require_once __DIR__ . '/../db_conn.php';
 
 // ADMIN users FILTERS
 if (isset($_GET['roleAssignated'])) {

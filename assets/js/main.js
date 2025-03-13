@@ -59,22 +59,35 @@ $(document).ready(function () {
     });
   }
 
-  // admin control change role from user
+  // admin control: change role from user
   $(".usersRole_adminControl").on("change", function () {
     this.closest("form").submit();
   });
 
-  // admin control delete user
+  // admin control: delete user
   $(".deleteUser").click(function (e) {
-    this.closest("form").submit();
+    e.preventDefault();
+    const adminResponse = prompt(
+      "Escribe ELIMINAR para confirmar la eliminacion de este usuario."
+    );
+    if (adminResponse === "ELIMINAR") this.closest("form").submit();
   });
 
-  // admin control ban user
+  // admin control: delete article
+  $(".deleteArticle").click(function (e) {
+    e.preventDefault();
+    const adminResponse = prompt(
+      "Escribe ELIMINAR para confirmar la eliminacion de este articulo."
+    );
+    if (adminResponse === "ELIMINAR") this.closest("form").submit();
+  });
+
+  // admin control: ban user
   $(".userBanButton").click(function (e) {
     this.closest("form").submit();
   });
 
-  // admin control filter searcheable table
+  // admin control: filter searcheable table
   $(".usersTextInputFilter").keyup(function (e) {
     console.log(e.target.value);
     const filter = e.target.value.toLowerCase();
@@ -131,8 +144,8 @@ $(document).ready(function () {
       });
   }
 
-  // bootstrap carrousel
-  if ($("#carousel_gallery")) {
+  if (document.querySelector("#carousel_gallery")) {
+    // bootstrap carrousel
     document
       .querySelector(".carousel-indicators")
       .firstElementChild.setAttribute("aria-current", "true");

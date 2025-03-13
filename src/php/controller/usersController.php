@@ -1,5 +1,5 @@
 <?php
-require 'db_conn.php';
+require_once __DIR__ . '/../db_conn.php';
 // Log-In
 function loginUser($conn, $email, $password)
 {

@@ -34,7 +34,7 @@
 <?php
 require '../controller/usersController.php';
 require '../model/usersModel.php';
-require '../controller/db_conn.php';
+require_once __DIR__ . '/../db_conn.php';
 
 // login form
 if (isset($_POST['loginSubmit'])) {
