@@ -209,7 +209,7 @@ require '../footer.php';
                     <div class="col-md-8">
                         <p class="bg-light p-3 rounded-3 h-100"><?php echo $articleInfo['article_desc']; ?></p>
                     </div>
-                    <div class="col-md-4 mt-3">
+                    <div class="col-md-4 mt-3 text-center">
                         <img class="img-fluid" src="../../public/media/articles_thumbnails/<?php echo $articleInfo['article_thumbnail']; ?>" alt="Portada de <?php echo $articleInfo['article_title']; ?> ">
                         <p class="bg-light m-1 text-center w-auto p-1"><?php echo $articleInfo['article_thumbnailSize']; ?> bytes</p>
                     </div>

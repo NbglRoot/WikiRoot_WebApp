@@ -65,6 +65,11 @@ html {
 }
 /* media queries */
 
+/* contact with us buttton */
+.contactWithUs {
+  width: max-content;
+}
+
 /* footer */
 footer {
   border-top: 1px dashed #ffffff98;

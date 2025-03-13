@@ -42,7 +42,7 @@ require 'components/footer.php';
 </head>
 
 <body>
-    <div class="background-body p-5">
+    <div class="background-body p-4">
         <?php
         if (isset($_GET['articles'])) {
             require_once 'components/pages/articlesPage.php';
@@ -62,6 +62,8 @@ require 'components/footer.php';
             } else {
                 require_once 'components/pages/profile.php';
             }
+        } elseif (isset($_GET['contact'])) {
+            require_once 'components/pages/contactPage.php';
         } else {
             require_once 'components/pages/heroLandingPage.php';
         } ?>

@@ -84,11 +84,17 @@ if (isset($_SESSION['user_logged_in'])) { ?>
                   <?php } ?>
                   <a class="dropdown-item" href="components/articles/articlesPage.php?createNewArticle">Crear Articulo</a>
                   <a class="dropdown-item" href="components/users_profiles/userProfile.php">Perfil</a>
+                  <?php
+                  if (!isset($_GET['contact'])) { ?>
+                    <hr>
+                    <a class="nav-link active btn btn-primary rounded-3" href="index.php?contact">
+                      Contacta con Nosotros
+                    </a>
+                  <?php } ?>
                   <hr>
                   <a href="index.php?logout" class="dropdown-item">Cerrar Sesión</a>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -154,7 +160,7 @@ if (isset($_SESSION['user_logged_in'])) { ?>
             class="d-flex gap-3 justify-content-center mt-3 mb-3 mt-md-0 mb-md-0">
             <div class="navbar-nav">
               <?php
-              if (isset($_GET['register'])) {
+              if (isset($_GET['register']) || isset($_GET['contact'])) {
                 echo "";
               } else { ?>
                 <a
@@ -179,6 +185,14 @@ if (isset($_SESSION['user_logged_in'])) { ?>
                   href="index.php?register">
                   <i class="fa fa-address-card" aria-hidden="true"></i>
                   Registrarse</a>
+              <?php } ?>
+            </div>
+            <div class="navbar-nav">
+              <?php
+              if (!isset($_GET['contact'])) { ?>
+                <a class="nav-link active btn btn-primary p-1 rounded-3 d-flex align-items-center gap-2" href="index.php?contact">
+                  Contacta con Nosotros
+                </a>
               <?php } ?>
             </div>
           </div>

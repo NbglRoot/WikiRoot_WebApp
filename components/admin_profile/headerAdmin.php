@@ -84,6 +84,13 @@ if (isset($_SESSION['user_logged_in'])) { ?>
                   <?php } ?>
                   <a class="dropdown-item" href="../articles/articlesPage.php?createNewArticle">Crear Articulo</a>
                   <a class="dropdown-item" href="../users_profiles/userProfile.php">Perfil</a>
+                  <?php
+                  if (!isset($_GET['contact'])) { ?>
+                    <hr>
+                    <a class="nav-link active btn btn-primary rounded-3" href="../../index.php?contact">
+                      Contacta con Nosotros
+                    </a>
+                  <?php } ?>
                   <hr>
                   <a href="../../index.php?logout" class="dropdown-item">Cerrar Sesión</a>
                 </div>
