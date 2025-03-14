@@ -1,1 +1,3 @@
 public/media/articles*
+vendor
+src/php/phpmailer.php
