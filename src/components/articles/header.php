@@ -1,5 +1,7 @@
 <?php
-require 'src/php/db_conn.php';
+
+require '../../php/db_conn.php';
+
 $query = $conn->prepare("SELECT * FROM articles");
 $query->execute();
 $result = $query->get_result();
@@ -10,9 +12,9 @@ if (isset($_SESSION['user_logged_in'])) { ?>
       <div class="container-fluid">
         <a
           class="navbar-brand"
-          href="index.php">
+          href="../../../index.php">
           <img
-            src="public/media/favicon/wikirooticon.png"
+            src="../../../public/media/favicon/wikirooticon.png"
             alt="icono de wikiroot"
             class="img-fluid rounded"
             id="wikirootIcon"
@@ -32,7 +34,7 @@ if (isset($_SESSION['user_logged_in'])) { ?>
         <div
           class="collapse align-items-center justify-content-between navbar-collapse"
           id="navbarID">
-          <form action="components/articles/articlesPage.php" method="GET" class="m-2">
+          <form action="articlesPage.php" method="GET" class="m-2">
             <div class="input-group gap-2">
               <input
                 type="text"
@@ -52,6 +54,7 @@ if (isset($_SESSION['user_logged_in'])) { ?>
                 } ?>
               </datalist>
               <button
+                name="searchPost"
                 class="btn btn-primary rounded-1"
                 type="submit"
                 id="button-addon1">
@@ -79,22 +82,23 @@ if (isset($_SESSION['user_logged_in'])) { ?>
                 <div class="dropdown-menu" aria-labelledby="userOptions">
                   <?php
                   if (strtolower($_SESSION['userRole']) == "admin") { ?>
-                    <a class="dropdown-item" href="components/admin_profile/administratorDDBB.php?userManagement">Gestionar Usuarios</a>
-                    <a class="dropdown-item" href="components/admin_profile/administratorDDBB.php?articlesManagement">Gestionar Articulos</a>
+                    <a class="dropdown-item" href="../admin_profile/administratorDDBB.php?userManagement">Gestionar Usuarios</a>
+                    <a class="dropdown-item" href="../admin_profile/administratorDDBB.php?articlesManagement">Gestionar Articulos</a>
                   <?php } ?>
-                  <a class="dropdown-item" href="components/articles/articlesPage.php?createNewArticle">Crear Articulo</a>
-                  <a class="dropdown-item" href="components/users_profiles/userProfile.php">Perfil</a>
+                  <a class="dropdown-item" href="../articles/articlesPage.php?createNewArticle">Crear Articulo</a>
+                  <a class="dropdown-item" href="../users_profiles/userProfile.php">Perfil</a>
                   <?php
                   if (!isset($_GET['contact'])) { ?>
                     <hr>
-                    <a class="nav-link active btn btn-primary rounded-3" href="index.php?contact">
+                    <a class="dropdown-item" href="../../../index.php?contact">
                       Contacta con Nosotros
                     </a>
                   <?php } ?>
                   <hr>
-                  <a href="index.php?logout" class="dropdown-item">Cerrar Sesión</a>
+                  <a href="../../../index.php?logout" class="dropdown-item">Cerrar Sesión</a>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
@@ -108,9 +112,9 @@ if (isset($_SESSION['user_logged_in'])) { ?>
       <div class="container-fluid">
         <a
           class="navbar-brand"
-          href="index.php">
+          href="../../../index.php">
           <img
-            src="public/media/favicon/wikirooticon.png"
+            src="../../../public/media/favicon/wikirooticon.png"
             alt="icono de wikiroot"
             class="img-fluid rounded"
             width="42px"
@@ -129,7 +133,7 @@ if (isset($_SESSION['user_logged_in'])) { ?>
         <div
           class="collapse align-items-center justify-content-between navbar-collapse"
           id="navbarID">
-          <form action="components/articles/articlesPage.php" method="GET" class="m-2">
+          <form action="articlesPage.php" method="GET" class="m-2">
             <div class="input-group gap-2">
               <input
                 type="text"
@@ -160,7 +164,7 @@ if (isset($_SESSION['user_logged_in'])) { ?>
             class="d-flex gap-3 justify-content-center mt-3 mb-3 mt-md-0 mb-md-0">
             <div class="navbar-nav">
               <?php
-              if (isset($_GET['register']) || isset($_GET['contact'])) {
+              if (isset($_GET['register'])) {
                 echo "";
               } else { ?>
                 <a
@@ -182,17 +186,9 @@ if (isset($_SESSION['user_logged_in'])) { ?>
                 <a
                   class="nav-link active btn btn-primary p-1 rounded-3 d-flex align-items-center gap-2"
                   aria-current="page"
-                  href="index.php?register">
+                  href="../../../index.php?register">
                   <i class="fa fa-address-card" aria-hidden="true"></i>
                   Registrarse</a>
-              <?php } ?>
-            </div>
-            <div class="navbar-nav">
-              <?php
-              if (!isset($_GET['contact'])) { ?>
-                <a class="nav-link active btn btn-primary p-1 rounded-3 d-flex align-items-center gap-2" href="index.php?contact">
-                  Contacta con Nosotros
-                </a>
               <?php } ?>
             </div>
           </div>
@@ -214,7 +210,7 @@ if (isset($_SESSION['user_logged_in'])) { ?>
                 </button>
               </div>
               <div class="modal-body">
-                <form action="src/php/view/users_forms.php" method="post">
+                <form action="../../php/view/users_forms.php" method="post">
                   <div class="mb-3">
                     <label for="userEmail" class="form-label">Correo Electronico: </label>
                     <input required type="email" name="userEmail" class="form-control" id="userEmail" aria-describedby="emailHelp">

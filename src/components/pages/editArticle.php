@@ -1,6 +1,6 @@
 <?php
 
-require '../../src/php/db_conn.php';
+require '../../php/db_conn.php';
 
 if (isset($_GET['editArticle'])) {
     $article_id = $_GET['editArticle'];
@@ -12,7 +12,7 @@ if (isset($_GET['editArticle'])) {
 
 ?>
     <main class="container mt-5 mb-5">
-        <form action="../../src/php/controller/articlesController.php?articleId=<?php echo $article_id; ?>" enctype="multipart/form-data" method="POST" class="creationOfArticles form-check">
+        <form action="../../php/controller/articlesController.php?articleId=<?php echo $article_id; ?>" enctype="multipart/form-data" method="POST" class="creationOfArticles form-check">
             <div class="row align-items-center">
                 <div class="col-md-4 p-3">
                     <div class="input-group-text">

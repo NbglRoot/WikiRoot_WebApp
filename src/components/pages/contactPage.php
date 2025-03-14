@@ -3,7 +3,7 @@
         <div class="col-md-7">
             <form class="d-none">
             </form>
-            <form action="../../src/php/phpmailer.php" method="post">
+            <form action="src/php/phpmailer.php" method="post">
                 <div class="input-group-text m-2 gap-2">
                     <label for="userEmail">Email: </label>
                     <input type="email" required class="form-control" id="userEmail" name="userEmail" placeholder="----@ejemplo.xxx"

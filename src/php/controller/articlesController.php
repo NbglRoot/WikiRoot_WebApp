@@ -30,9 +30,9 @@ if (isset($_POST['createNewArticle'])) {
         try {
             $query->execute();
         } catch (\Throwable $th) {
-            header("Location: ../../../components/articles/articlesPage.php?showAllArticles&error=aleadyExists");
+            header("Location: ../../components/articles/articlesPage.php?showAllArticles&error=aleadyExists");
         } finally {
-            header("Location: ../../../components/articles/articlesPage.php?showAllArticles");
+            header("Location: ../../components/articles/articlesPage.php?showAllArticles");
         }
 
         // upload image to folder
@@ -71,7 +71,7 @@ if (isset($_POST['createNewArticle'])) {
 
         $query->close();
     } else {
-        header("Location: ../../../components/articles/articlesPage.php?showAllArticles&error=aleadyExists");
+        header("Location: ../../components/articles/articlesPage.php?showAllArticles&error=aleadyExists");
     }
 }
 
@@ -80,7 +80,7 @@ if (isset($_POST['editExisitingArticle'])) {
     $query->bind_param("sssi", $_POST['editArticleTitle'], $_POST['editArticleSummary'], $_POST['editArticleInfo'], $_GET['articleId']);
     $query->execute();
 
-    header("Location: ../../../components/articles/articlesPage.php?post=" . $_POST['editArticleTitle']);
+    header("Location: ../../components/articles/articlesPage.php?post=" . $_POST['editArticleTitle']);
 }
 
 

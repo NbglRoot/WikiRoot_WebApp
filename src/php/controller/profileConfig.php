@@ -14,7 +14,7 @@ if (isset($_GET['updateGeneralInfo'])) {
         session_destroy();
         header("Location:../../../index.php");
     } else {
-        header("Location:../../../components/users_profiles/userProfile.php?emptyFields");
+        header("Location:../../components/users_profiles/userProfile.php?emptyFields");
     }
 }
 
@@ -30,10 +30,10 @@ if (isset($_GET['updatePrivateInfo'])) {
             session_destroy();
             header("Location:../../../index.php");
         } else {
-            header("Location:../../../components/users_profiles/userProfile.php?wrongPassword");
+            header("Location:../../components/users_profiles/userProfile.php?wrongPassword");
         }
     } else {
-        header("Location:../../../components/users_profiles/userProfile.php?samePassword");
+        header("Location:../../components/users_profiles/userProfile.php?samePassword");
     }
 }
 

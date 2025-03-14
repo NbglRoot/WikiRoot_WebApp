@@ -21,7 +21,8 @@ html {
 
 /* background image for containers */
 .background-body {
-  background-image: url(../../public/media/img/hero-backgorund.png);
+  background-image: url("../../../public/media/img/hero-backgorund.png");
+  background-color: #242424;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;

@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] != true) {
-    header("Location:../../index.php");
+    header("Location:../../../index.php");
 }
 
 
@@ -19,7 +19,7 @@ require '../footer.php';
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- favicon -->
-    <link rel="shortcut icon" href="../../public/media/favicon/wikirooticon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../../public/media/favicon/wikirooticon.png" type="image/x-icon">
 
     <!-- css links -->
     <link rel="stylesheet" href="../../assets/css/mainStyle.css">
@@ -38,7 +38,7 @@ require '../footer.php';
                             <h5 class="card-title">Información de Cuenta</h5>
                             <h6 class="card-subtitle mb-2 text-muted ">Información Publica General</h6>
                             <hr>
-                            <form action="../../src/php/controller/profileConfig.php?updateGeneralInfo" id="generalInfo" method="post" class="form-check-inline m-3 gap-3 d-flex flex-wrap justify-content-evenly align-items-center">
+                            <form action="../../php/controller/profileConfig.php?updateGeneralInfo" id="generalInfo" method="post" class="form-check-inline m-3 gap-3 d-flex flex-wrap justify-content-evenly align-items-center">
                                 <div class="input-group gap-2 align-items-center m-2 w-auto">
                                     <label for="userCurrentName">Nombre: </label>
                                     <input disabled="true" type="text" size="25" name="userCurrentName" id="userCurrentName" class="p-1 shadow form-control" value="<?php echo $_SESSION['userName'] ?>">
@@ -69,7 +69,7 @@ require '../footer.php';
                             <h5 class="card-title">Seguridad de Cuenta</h5>
                             <h6 class="card-subtitle mb-2 text-muted ">Información Privada de Seguridad</h6>
                             <hr>
-                            <form action="../../src/php/controller/profileConfig.php?updatePrivateInfo" method="post" id="privateInfo" class="form-check-inline m-3 d-flex align-items-center justify-content-between">
+                            <form action="../../php/controller/profileConfig.php?updatePrivateInfo" method="post" id="privateInfo" class="form-check-inline m-3 d-flex align-items-center justify-content-between">
                                 <div class="gap-2 align-items-center m-2 w-auto">
                                     <label for="userCurrentPassword">Contraseña Actual: </label>
                                     <input disabled="true" size="25" name="userCurrentPassword" id="userCurrentPassword" class="p-1 shadow form-control" type="password" value="">
@@ -87,7 +87,7 @@ require '../footer.php';
             </div>
             <div class="row mt-4 mb-4 justify-content-center">
                 <div class="col-md-3">
-                    <form action="../../src/php/controller/profileConfig.php?deleteMyAccount" class="text-center" method="post">
+                    <form action="../../php/controller/profileConfig.php?deleteMyAccount" class="text-center" method="post">
                         <button class="btn btn-danger" name="deleteMyAccount" id="deleteMyAccount" type="submit">Eliminar Cuenta</button>
                     </form>
                 </div>

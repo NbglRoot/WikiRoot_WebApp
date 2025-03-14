@@ -18,9 +18,9 @@ if (isset($_GET['loginFailed'])) { ?>
 <?php
 }
 
-require 'components/header.php';
-include 'components/popups.php';
-require 'components/footer.php';
+require 'src/components/header.php';
+include 'src/components/popups.php';
+require 'src/components/footer.php';
 ?>
 
 <!doctype html>
@@ -35,7 +35,7 @@ require 'components/footer.php';
     <link rel="shortcut icon" href="/public/media/favicon/wikirooticon.png" type="image/x-icon">
 
     <!-- css links -->
-    <link rel="stylesheet" href="assets/css/mainStyle.css">
+    <link rel="stylesheet" href="src/assets/css/mainStyle.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
         crossorigin="anonymous">
@@ -45,9 +45,9 @@ require 'components/footer.php';
     <div class="background-body p-4">
         <?php
         if (isset($_GET['articles'])) {
-            require_once 'components/pages/articlesPage.php';
+            require_once 'src/components/pages/articlesPage.php';
         } elseif (isset($_GET['register'])) {
-            require_once 'components/pages/registerPage.php';
+            require_once 'src/components/pages/registerPage.php';
         } elseif (isset($_GET['user'])) {
             if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] === false) { ?>
                 <div class="alert alert-primary d-flex position-absolute bottom-0 start-0 end-0 m-5 align-items-center" role="alert">
@@ -60,12 +60,12 @@ require 'components/footer.php';
                 </div>
         <?php
             } else {
-                require_once 'components/pages/profile.php';
+                require_once 'src/components/pages/profile.php';
             }
         } elseif (isset($_GET['contact'])) {
-            require_once 'components/pages/contactPage.php';
+            require_once 'src/components/pages/contactPage.php';
         } else {
-            require_once 'components/pages/heroLandingPage.php';
+            require_once 'src/components/pages/heroLandingPage.php';
         } ?>
     </div>
 
@@ -74,7 +74,7 @@ require 'components/footer.php';
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
         crossorigin="anonymous"></script>
 
-    <script src="assets/js/main.js"></script>
+    <script src="src/assets/js/main.js"></script>
 
     <!-- Bootstrap and Popper JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

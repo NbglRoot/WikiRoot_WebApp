@@ -1,9 +1,9 @@
 <?php
 session_start();
 if (strtolower($_SESSION['userRole']) !== 'admin') {
-    header("Location: ../../index.php");
+    header("Location: ../../../index.php");
 }
-require '../../src/php/controller/adminConfig.php';
+require '../../php/controller/adminConfig.php';
 require 'headerAdmin.php';
 require '../footer.php';
 
@@ -75,7 +75,7 @@ require '../footer.php';
                                                 }
                                                 ?> </td>
                                         <td>
-                                            <form id="adminRoleAdministration" action="../../src/php/controller/adminConfig.php?idRoleChange=<?php echo $users['id']; ?>" class="m-0" method="post">
+                                            <form id="adminRoleAdministration" action="../../php/controller/adminConfig.php?idRoleChange=<?php echo $users['id']; ?>" class="m-0" method="post">
                                                 <select name="roleEdited" class="usersRole_adminControl p-1">
                                                     <option> <?php if ($users['role'] == 1) {
                                                                     echo 'Editor';
@@ -91,7 +91,7 @@ require '../footer.php';
                                             </form>
                                         </td>
                                         <td class="d-flex gap-3 align-items-center justify-content-center">
-                                            <form class="m-0" action="../../src/php/controller/adminConfig.php?idUserBan=<?php echo $users['id']; ?>&userStatus=<?php echo $users['ban_status'] ?>" method="post">
+                                            <form class="m-0" action="../../php/controller/adminConfig.php?idUserBan=<?php echo $users['id']; ?>&userStatus=<?php echo $users['ban_status'] ?>" method="post">
                                                 <button name="banUser" class="btn btn-info userBanButton" type="submit">
                                                     <?php
                                                     if ($users['ban_status'] == 'not_banned') {
@@ -104,7 +104,7 @@ require '../footer.php';
 
                                                 </button>
                                             </form>
-                                            <form class="m-0" action="../../src/php/controller/adminConfig.php?idUserDelete=<?php echo $users['id']; ?>" method="post">
+                                            <form class="m-0" action="../../php/controller/adminConfig.php?idUserDelete=<?php echo $users['id']; ?>" method="post">
                                                 <button name="deleteUser" class="btn btn-danger deleteUser" type="submit">Eliminar</button>
                                             </form>
                                         </td>
@@ -148,7 +148,7 @@ require '../footer.php';
                                                 <td> <?php echo $articles['article_title'] ?> </td>
                                                 </td>
                                                 <td class="d-flex gap-3 align-items-center justify-content-center">
-                                                    <form class="m-0" action="../../src/php/controller/adminConfig.php?idArticleDelete=<?php echo $articles['id']; ?>" method="post">
+                                                    <form class="m-0" action="../../php/controller/adminConfig.php?idArticleDelete=<?php echo $articles['id']; ?>" method="post">
                                                         <button name="deleteArticle" class="btn btn-danger deleteArticle" type="submit">Eliminar</button>
                                                     </form>
                                                 </td>
